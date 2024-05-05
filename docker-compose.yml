@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  minio:
+    image: minio/minio
+    container_name: wiki-minio
+    ports:
+      - "9004:9000"
+      - "9001:9001"
+    volumes:
+      - minio_wiki_storage:/data
+    command: server --console-address ":9001" /data
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+volumes:
+  minio_wiki_storage: {}
